@@ -7,5 +7,5 @@ class ProductRemoteDataSource @Inject constructor(
 ) {
     suspend fun getProducts() = service.getProducts()
 
-    suspend fun getProductDetail(id: Long) = service.getProductDetail(id)
+    suspend fun getProductDetail(id: String) = service.getProductDetail(id)
 }

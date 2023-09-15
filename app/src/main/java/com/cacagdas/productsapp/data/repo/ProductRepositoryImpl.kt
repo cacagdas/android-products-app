@@ -9,5 +9,5 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getProducts() = remoteDataSource.getProducts()
 
-    override suspend fun getProductDetail(id: Long) = remoteDataSource.getProductDetail(id)
+    override suspend fun getProductDetail(id: String) = remoteDataSource.getProductDetail(id)
 }
