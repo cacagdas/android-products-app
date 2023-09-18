@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.cacagdas.productsapp.core.base.ProductsAppViewModel
 import com.cacagdas.productsapp.core.util.extension.checkResult
 import com.cacagdas.productsapp.data.model.Product
+import com.cacagdas.productsapp.domain.GetLocalProductDetail
 import com.cacagdas.productsapp.domain.GetProductDetail
 import com.cacagdas.productsapp.presentation.detail.DetailFragment.Companion.ARG_PRODUCT_ID
 import com.cacagdas.productsapp.presentation.detail.DetailFragment.Companion.ARG_PRODUCT_TITLE
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getProductDetail: GetProductDetail
+    private val getProductDetail: GetProductDetail,
+    private val getLocalProductDetail: GetLocalProductDetail
 ) : ProductsAppViewModel() {
 
     private val _product = MutableLiveData<Product>()
@@ -29,17 +31,28 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun getProduct() = viewModelLaunch {
-        productId?.let {
+        productId?.let { id ->
             showLoading.value = true
-            checkResult(getProductDetail.invoke(GetProductDetail.Params(productId)),
+            checkResult(getProductDetail.invoke(GetProductDetail.Params(id)),
                 onSuccess = {
                     _product.value = it
                     showLoading.value = false
                 }
             ) {
-                showLoading.value = false
-                showErrorMessage.value = it
+                getProductLocal(id)
             }
+        }
+    }
+
+    private fun getProductLocal(id: String) = viewModelLaunch {
+        checkResult(getLocalProductDetail.invoke(GetLocalProductDetail.Params(id)),
+            onSuccess = {
+                _product.value = it
+                showLoading.value = false
+            }
+        ) {
+            showLoading.value = false
+            showErrorMessage.value = it
         }
     }
 }

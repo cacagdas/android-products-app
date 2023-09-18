@@ -14,6 +14,8 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getLocalProducts() = localDataSource.getProducts()
 
+    override suspend fun getLocalProductDetail(id: String) = localDataSource.getProductDetail(id)
+
     override suspend fun getProducts() = remoteDataSource.getProducts()
 
     override suspend fun getProductDetail(id: String) = remoteDataSource.getProductDetail(id)

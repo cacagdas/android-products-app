@@ -9,6 +9,8 @@ interface ProductRepository {
 
     suspend fun getLocalProducts(): List<Product>
 
+    suspend fun getLocalProductDetail(id: String): Product
+
     suspend fun getProducts(): ProductsResponse
 
     suspend fun getProductDetail(id: String): Product

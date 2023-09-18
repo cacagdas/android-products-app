@@ -12,5 +12,5 @@ class ProductLocalDataSource @Inject constructor(
 
     suspend fun getProducts() = dao.getAllProducts()
 
-    fun getProductDetail(id: String) = dao.getProduct(id)
+    suspend fun getProductDetail(id: String) = dao.getProduct(id)
 }

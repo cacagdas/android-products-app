@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.cacagdas.productsapp.data.model.Product
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductDao {
@@ -17,5 +16,5 @@ interface ProductDao {
     suspend fun getAllProducts(): List<Product>
 
     @Query("SELECT * FROM product_table WHERE id=:productId")
-    fun getProduct(productId: String): Flow<Product>
+    suspend fun getProduct(productId: String): Product
 }
