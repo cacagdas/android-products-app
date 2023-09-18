@@ -23,8 +23,13 @@ class ProductsViewModel @Inject constructor(
 
     private fun getProductList() = viewModelLaunch {
         showLoading.value = true
-        checkResult(getProducts.invoke(GetProducts.Params(Unit))) {
-            it.products?.let { list -> _products.value = list }
-        }
+        checkResult(getProducts.invoke(GetProducts.Params(Unit)),
+            onSuccess = {
+                it.products?.let { list -> _products.value = list }
+            },
+            onError = {
+                showLoading.value = false
+                showErrorMessage.value = it
+            })
     }
 }

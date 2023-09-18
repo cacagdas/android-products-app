@@ -31,10 +31,15 @@ class DetailViewModel @Inject constructor(
     private fun getProduct() = viewModelLaunch {
         productId?.let {
             showLoading.value = true
-            checkResult(getProductDetail.invoke(GetProductDetail.Params(productId))) {
-                _product.value = it
-                showLoading.value = false
-            }
+            checkResult(getProductDetail.invoke(GetProductDetail.Params(productId)),
+                onSuccess = {
+                    _product.value = it
+                    showLoading.value = false
+                },
+                onError = {
+                    showLoading.value = false
+                    showErrorMessage.value = it
+                })
         }
     }
 }

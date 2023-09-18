@@ -2,6 +2,7 @@ package com.cacagdas.productsapp.presentation.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.cacagdas.productsApp.R
 import com.cacagdas.productsApp.databinding.ProductDetailFragmentBinding
@@ -37,6 +38,9 @@ class DetailFragment : ProductsAppFragment<ProductDetailFragmentBinding, DetailV
         viewModel.run {
             observeLiveData(showLoadingLiveData) {
                 progressDialog.showOrHide(it)
+            }
+            observeLiveData(showErrorMessageLiveData) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
             observeLiveData(product) {
                 bindProduct(it)

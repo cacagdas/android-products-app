@@ -2,6 +2,7 @@ package com.cacagdas.productsapp.presentation.products
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,6 +38,9 @@ class ProductsFragment : ProductsAppFragment<ProductsFragmentBinding, ProductsVi
         viewModel.run {
             observeLiveData(showLoadingLiveData) {
                 progressDialog.showOrHide(it)
+            }
+            observeLiveData(showErrorMessageLiveData) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
             }
             observeFlow(products) {
                 productsAdapter.submitList(it) {
