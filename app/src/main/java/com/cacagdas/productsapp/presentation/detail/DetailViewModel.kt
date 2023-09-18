@@ -35,11 +35,11 @@ class DetailViewModel @Inject constructor(
                 onSuccess = {
                     _product.value = it
                     showLoading.value = false
-                },
-                onError = {
-                    showLoading.value = false
-                    showErrorMessage.value = it
-                })
+                }
+            ) {
+                showLoading.value = false
+                showErrorMessage.value = it
+            }
         }
     }
 }

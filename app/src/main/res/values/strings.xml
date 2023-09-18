@@ -2,4 +2,5 @@
     <string name="app_name">ProductsApp</string>
     <string name="products_title">Products</string>
     <string name="detail">Detail</string>
+    <string name="empty_list_message">List empty.</string>
 </resources>

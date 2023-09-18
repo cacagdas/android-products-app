@@ -11,6 +11,7 @@ import com.cacagdas.productsApp.databinding.ProductsFragmentBinding
 import com.cacagdas.productsapp.core.base.ProductsAppFragment
 import com.cacagdas.productsapp.core.util.extension.observeFlow
 import com.cacagdas.productsapp.core.util.extension.observeLiveData
+import com.cacagdas.productsapp.core.util.extension.visibleOrGone
 import com.cacagdas.productsapp.core.widget.WidgetProgressDialog
 import com.cacagdas.productsapp.core.widget.WidgetToolbar
 import com.cacagdas.productsapp.data.model.Product
@@ -41,6 +42,13 @@ class ProductsFragment : ProductsAppFragment<ProductsFragmentBinding, ProductsVi
             }
             observeLiveData(showErrorMessageLiveData) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            }
+            observeLiveData(emptyViewVisibilityLiveData) {
+                binding.run {
+                    products.visibleOrGone(!it)
+                    emptyView.visibleOrGone(it)
+                    viewModel.showLoading.value = false
+                }
             }
             observeFlow(products) {
                 productsAdapter.submitList(it) {

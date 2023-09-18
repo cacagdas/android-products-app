@@ -5,7 +5,7 @@ import javax.inject.Inject
 class ProductRemoteDataSource @Inject constructor(
     private val service: ProductService,
 ) {
-    suspend fun getProducts() = service.getProducts().products
+    suspend fun getProducts() = service.getProducts()
 
     suspend fun getProductDetail(id: String) = service.getProductDetail(id)
 }

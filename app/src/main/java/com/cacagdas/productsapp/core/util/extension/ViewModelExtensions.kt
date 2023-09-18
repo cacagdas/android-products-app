@@ -1,11 +1,10 @@
 package com.cacagdas.productsapp.core.util.extension
 
-import com.cacagdas.productsapp.core.base.ProductsAppViewModel
 import com.cacagdas.productsapp.core.util.Result
 
-fun <T> ProductsAppViewModel.checkResult(
+fun <T> checkResult(
     result: Result<T>,
-    onSuccess: (T) -> (Unit),
+    onSuccess: (T) -> Unit,
     onError: (String?) -> Unit
 ) {
     when (result) {
