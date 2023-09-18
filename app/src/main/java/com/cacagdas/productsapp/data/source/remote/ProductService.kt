@@ -1,4 +1,4 @@
-package com.cacagdas.productsapp.data.source
+package com.cacagdas.productsapp.data.source.remote
 
 import com.cacagdas.productsapp.data.model.Product
 import com.cacagdas.productsapp.data.model.ProductsResponse

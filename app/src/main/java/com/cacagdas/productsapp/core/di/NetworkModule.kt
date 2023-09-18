@@ -1,9 +1,15 @@
 package com.cacagdas.productsapp.core.di
 
+import android.app.Application
+import androidx.room.Room
+import com.cacagdas.productsapp.core.util.Constants.DATABASE_NAME
+import com.cacagdas.productsapp.data.db.ProductDao
+import com.cacagdas.productsapp.data.db.ProductDb
 import com.cacagdas.productsapp.data.repo.ProductRepository
 import com.cacagdas.productsapp.data.repo.ProductRepositoryImpl
-import com.cacagdas.productsapp.data.source.ProductRemoteDataSource
-import com.cacagdas.productsapp.data.source.ProductService
+import com.cacagdas.productsapp.data.source.local.ProductLocalDataSource
+import com.cacagdas.productsapp.data.source.remote.ProductRemoteDataSource
+import com.cacagdas.productsapp.data.source.remote.ProductService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -74,7 +80,16 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRepository(remoteDataSource: ProductRemoteDataSource): ProductRepository {
-        return ProductRepositoryImpl(remoteDataSource)
+    fun provideLocalDataSource(dao: ProductDao): ProductLocalDataSource {
+        return ProductLocalDataSource(dao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRepository(
+        remoteDataSource: ProductRemoteDataSource,
+        localDataSource: ProductLocalDataSource
+    ): ProductRepository {
+        return ProductRepositoryImpl(remoteDataSource, localDataSource)
     }
 }

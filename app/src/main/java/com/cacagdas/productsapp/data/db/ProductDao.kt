@@ -1,6 +1,8 @@
 package com.cacagdas.productsapp.data.db
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.cacagdas.productsapp.data.model.Product
 import kotlinx.coroutines.flow.Flow
@@ -8,8 +10,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProductDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItems(items: List<Product>)
+
     @Query("SELECT * FROM product_table ORDER BY id ASC")
-    fun getAllProducts(): Flow<List<Product>>
+    suspend fun getAllProducts(): List<Product>
 
     @Query("SELECT * FROM product_table WHERE id=:productId")
     fun getProduct(productId: String): Flow<Product>
