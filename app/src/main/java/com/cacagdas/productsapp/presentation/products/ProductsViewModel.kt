@@ -22,12 +22,17 @@ class ProductsViewModel @Inject constructor(
     }
 
     private fun getProductList() = viewModelLaunch {
-        checkResult(getProducts.invoke(GetProducts.Params(Unit))) {
-            viewModelLaunch {
-                it.collect { list ->
-                    _products.value = list
+        checkResult(getProducts.invoke(GetProducts.Params(Unit)),
+            onSuccess = {
+                viewModelLaunch {
+                    it.collect { list ->
+                        _products.value = list
+                    }
                 }
-            }
-        }
+            },
+            onError = {
+                showLoading.value = false
+                showErrorMessage.value = it
+            })
     }
 }
