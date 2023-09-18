@@ -8,6 +8,25 @@
     <fragment
         android:id="@+id/productsFragment"
         android:name="com.cacagdas.productsapp.presentation.products.ProductsFragment"
-        tools:layout="@layout/products_fragment"
-        tools:label="ProductsFragment" />
+        tools:label="ProductsFragment"
+        tools:layout="@layout/products_fragment">
+        <action
+            android:id="@+id/action_productsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.cacagdas.productsapp.presentation.detail.DetailFragment"
+        tools:label="DetailFragment"
+        tools:layout="@layout/product_detail_fragment">
+
+        <argument
+            android:name="productId"
+            app:argType="string" />
+        <argument
+            android:name="productTitle"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

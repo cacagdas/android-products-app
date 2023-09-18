@@ -5,6 +5,10 @@ import android.view.Menu
 import android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
+import com.cacagdas.productsApp.R
 import com.cacagdas.productsApp.databinding.ActivityMainBinding
 import com.cacagdas.productsapp.core.widget.WidgetToolbar
 import com.google.android.material.appbar.MaterialToolbar
@@ -14,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toolbar: MaterialToolbar
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +26,15 @@ class MainActivity : AppCompatActivity() {
             setContentView(it.root)
         }
         toolbar = binding.toolbar
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        setSupportActionBar(toolbar)
+        navController = navHostFragment.navController
+        navController?.let { setupActionBarWithNavController(it) }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController?.navigateUp() == true
     }
 
     fun updateToolbar(widgetToolbar: WidgetToolbar) {

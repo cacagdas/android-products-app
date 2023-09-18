@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cacagdas.productsApp.R
 import com.cacagdas.productsApp.databinding.ProductsFragmentBinding
@@ -63,7 +64,12 @@ class ProductsFragment : ProductsAppFragment<ProductsFragmentBinding, ProductsVi
 
     override fun onProductClick(product: Product) {
         product.id?.let {
-            // TODO navigate detail
+            findNavController().navigate(
+                ProductsFragmentDirections.actionProductsFragmentToDetailFragment(
+                    it,
+                    product.name
+                )
+            )
         }
     }
 
