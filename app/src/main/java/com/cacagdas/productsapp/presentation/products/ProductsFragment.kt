@@ -1,6 +1,5 @@
 package com.cacagdas.productsapp.presentation.products
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -28,10 +27,6 @@ class ProductsFragment : ProductsAppFragment<ProductsFragmentBinding, ProductsVi
     }
 
     private lateinit var productsAdapter: ProductListAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onBindView(binding: ProductsFragmentBinding) {
         initRecyclerView()
@@ -63,14 +58,12 @@ class ProductsFragment : ProductsAppFragment<ProductsFragmentBinding, ProductsVi
     }
 
     override fun onProductClick(product: Product) {
-        product.id?.let {
-            findNavController().navigate(
-                ProductsFragmentDirections.actionProductsFragmentToDetailFragment(
-                    it,
-                    product.name
-                )
+        findNavController().navigate(
+            ProductsFragmentDirections.actionProductsFragmentToDetailFragment(
+                product.id,
+                product.name
             )
-        }
+        )
     }
 
     override fun provideToolbar() = WidgetToolbar(
