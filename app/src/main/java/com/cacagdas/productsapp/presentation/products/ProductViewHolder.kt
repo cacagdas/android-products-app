@@ -3,6 +3,7 @@ package com.cacagdas.productsapp.presentation.products
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.cacagdas.productsApp.databinding.ProductItemBinding
+import com.cacagdas.productsapp.core.util.extension.loadImage
 import com.cacagdas.productsapp.data.model.Product
 
 class ProductViewHolder(
@@ -21,7 +22,7 @@ class ProductViewHolder(
     fun bind(item: Product) {
         product = item
         binding.apply {
-            // TODO image.loadImage(item.image)
+            image.loadImage(item.image)
             name.text = item.name
             price.text = item.price?.toString()
         }
