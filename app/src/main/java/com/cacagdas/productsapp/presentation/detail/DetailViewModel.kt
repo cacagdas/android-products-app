@@ -1,5 +1,6 @@
 package com.cacagdas.productsapp.presentation.detail
 
+import androidx.annotation.OpenForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -30,7 +31,8 @@ class DetailViewModel @Inject constructor(
         getProduct()
     }
 
-    private fun getProduct() = viewModelLaunch {
+    @OpenForTesting
+    fun getProduct() = viewModelLaunch {
         productId?.let { id ->
             showLoading.value = true
             checkResult(getProductDetail.invoke(GetProductDetail.Params(id)),
@@ -44,7 +46,8 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun getProductLocal(id: String) = viewModelLaunch {
+    @OpenForTesting
+    fun getProductLocal(id: String) = viewModelLaunch {
         checkResult(getLocalProductDetail.invoke(GetLocalProductDetail.Params(id)),
             onSuccess = {
                 _product.value = it

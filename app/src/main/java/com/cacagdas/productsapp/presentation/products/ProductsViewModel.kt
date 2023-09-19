@@ -1,5 +1,6 @@
 package com.cacagdas.productsapp.presentation.products
 
+import androidx.annotation.OpenForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cacagdas.productsapp.core.base.ProductsAppViewModel
@@ -30,7 +31,8 @@ class ProductsViewModel @Inject constructor(
         getProductList()
     }
 
-    private fun getProductList() = viewModelLaunch {
+    @OpenForTesting
+    fun getProductList() = viewModelLaunch {
         showLoading.value = true
         checkResult(getProducts.invoke(GetProducts.Params(Unit)),
             onSuccess = {
@@ -43,7 +45,8 @@ class ProductsViewModel @Inject constructor(
         }
     }
 
-    private fun storeProductList(items: List<Product>)  = viewModelLaunch {
+    @OpenForTesting
+    fun storeProductList(items: List<Product>) = viewModelLaunch {
         checkResult(storeProducts.invoke(StoreProducts.Params(items)),
             onSuccess = {
                 getLocalProductList()
@@ -53,7 +56,8 @@ class ProductsViewModel @Inject constructor(
         }
     }
 
-    private fun getLocalProductList() = viewModelLaunch {
+    @OpenForTesting
+    fun getLocalProductList() = viewModelLaunch {
         checkResult(getLocalProducts.invoke(GetLocalProducts.Params(Unit)),
             onSuccess = {
                 emptyViewVisibility.value = it.isEmpty()
