@@ -1,11 +1,14 @@
 package com.cacagdas.productsapp.core.util.extension
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.cacagdas.productsapp.core.widget.WidgetRecyclerView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import com.cacagdas.productsapp.core.widget.WidgetRecyclerView
 
 fun Fragment.releaseAdapterOnDestroy(recyclerView: WidgetRecyclerView) {
     viewLifecycleOwner.lifecycle.addObserver(recyclerView)
@@ -24,9 +27,9 @@ inline fun <T> Fragment.observeFlow(
     }
 }
 
-inline fun <T> Fragment.observeLiveData(
+fun <T> Fragment.observeLiveData(
     liveData: LiveData<T>,
-    noinline onChanged: (T) -> Unit
+    onChanged: (T) -> Unit
 ) {
     liveData.observe(viewLifecycleOwner, onChanged)
 }
